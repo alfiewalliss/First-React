@@ -1,14 +1,9 @@
 module.exports = {
-  port: 5002,
+  port: 3005,
   jwtSecret: "!!CryptoCat@!!",
   jwtExpirationInSeconds: 60 * 60, // 1 hour
   roles: {
     USER: "user",
     ADMIN: "admin",
-  },
-  productPriceUnits: {
-    DOLLAR: "dollar",
-    EURO: "euro",
-    INR: "inr",
   },
 };

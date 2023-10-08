@@ -21,7 +21,7 @@ function RegisterBox(props) {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
-    fetch("http://localhost:5002/signup", {
+    fetch("http://localhost:3005/signup", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -31,9 +31,9 @@ function RegisterBox(props) {
         firstName: fName,
         lastName: lName,
         email: email,
-        username: "test",
+        username: fName,
         password: password,
-        age: "18",
+        age: 18,
       }),
     });
   };

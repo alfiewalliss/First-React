@@ -19,11 +19,27 @@ function NewMeetupForm(props) {
     const enteredDescription = descriptionInputRef.current.value;
 
     const meetupData = {
+      title: enteredTitle,
+      image: enteredImage,
+      address: enteredAddress,
+      description: enteredDescription,
+    };
+
+    fetch("http://localhost:3005/meetup/", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: JSON.stringify({
         title: enteredTitle,
         image: enteredImage,
         address: enteredAddress,
-        description: enteredDescription
-    }
+        description: enteredDescription,
+      }),
+    });
+
     props.onAddMeetup(meetupData);
   }
 
@@ -32,11 +48,11 @@ function NewMeetupForm(props) {
       <form className={classes.form} onSubmit={submitHandler}>
         <div className={classes.control}>
           <label htmlFor="title">Meetup Title</label>
-          <input type="test" required id="title" ref={titleInputRef} />
+          <input type="text" required id="title" ref={titleInputRef} />
         </div>
         <div className={classes.control}>
           <label htmlFor="image">Meetup Image</label>
-          <input type="url" required id="image" ref={imageInputRef} />
+          <input type="text" required id="image" ref={imageInputRef} />
         </div>
         <div className={classes.control}>
           <label htmlFor="address">Address</label>

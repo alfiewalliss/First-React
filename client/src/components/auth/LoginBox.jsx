@@ -16,22 +16,25 @@ function LoginBox(props) {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const email = emailInputRef.current.value;
     const password = passwordInputRef.current.value;
 
-    fetch("http://localhost:5002/login", {
+    const response = await fetch("http://localhost:3005/login", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: email,
+        username: email,
         password: password,
       }),
     });
+
+    const data = await response.json();
+    localStorage.setItem("token", data.data.token);
   };
   return (
     <Card className={classes.content}>
@@ -40,7 +43,7 @@ function LoginBox(props) {
           <label htmlFor="email">Email:</label>
           <input
             value={email}
-            type="email"
+            type="text"
             placeholder="youremail@email.com"
             id="email"
             name="email"
