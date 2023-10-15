@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Card from "../ui/Card";
 import classes from "./LoginBox.module.css";
 import { useRef } from "react";
-
 import bcrypt from "bcryptjs";
 
 // SALT should be created ONE TIME upon sign up
@@ -15,6 +14,7 @@ function LoginBox(props) {
   const [password, setPassword] = useState("");
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,8 +34,12 @@ function LoginBox(props) {
     });
 
     const data = await response.json();
-    localStorage.setItem("token", data.data.token);
+    if (data.status) {
+      localStorage.setItem("token", data.data.token);
+      navigate("/");
+    }
   };
+
   return (
     <Card className={classes.content}>
       <form className={classes.content} onSubmit={handleSubmit}>

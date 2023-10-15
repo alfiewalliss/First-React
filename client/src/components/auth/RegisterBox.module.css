@@ -31,6 +31,23 @@ input {
   margin-bottom: 20px;
 }
 
+.formFieldDivAges {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 90%;
+  height: 60px;
+  margin-bottom: 20px;
+}
+
+.formFieldAges {
+  margin-top: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+  height: 50px;
+  margin-bottom: 20px;
+}
+
 .submitButton {
   margin-top: 20px;
   width: 50%;

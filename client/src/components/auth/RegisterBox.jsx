@@ -1,27 +1,25 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import classes from "./RegisterBox.module.css";
 import Card from "../ui/Card";
-import { useRef } from "react";
-
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 function RegisterBox(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fName, setFName] = useState("");
   const [lName, setLName] = useState("");
-  const fNameRef = useRef();
-  const lNameRef = useRef();
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const [age, setAge] = useState("");
+  const navigate = useNavigate();
+  const ages = [];
+  for (let i = 18; i <= 100; i++) {
+    ages.push(i);
+  }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const fName = fNameRef.current.value;
-    const lName = lNameRef.current.value;
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
 
-    fetch("http://localhost:3005/signup", {
+    const response = await fetch("http://localhost:3005/signup", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -36,6 +34,13 @@ function RegisterBox(props) {
         age: 18,
       }),
     });
+    console.log("Response Status:", response.status);
+    const data = await response.json();
+    console.log(data);
+    if (data.status) {
+      localStorage.setItem("token", data.data.token);
+      navigate("/");
+    }
   };
 
   return (
@@ -50,7 +55,6 @@ function RegisterBox(props) {
             id="fName"
             name="fName"
             onChange={(e) => setFName(e.target.value)}
-            ref={fNameRef}
           />
         </div>
         <div className={classes.formField}>
@@ -62,7 +66,6 @@ function RegisterBox(props) {
             id="lName"
             name="lName"
             onChange={(e) => setLName(e.target.value)}
-            ref={lNameRef}
           />
         </div>
         <div className={classes.formField}>
@@ -74,9 +77,29 @@ function RegisterBox(props) {
             id="email"
             name="email"
             onChange={(e) => setEmail(e.target.value)}
-            ref={emailRef}
           />
         </div>
+
+        <div className={classes.formField}>
+          <label htmlFor="age">Age:</label>
+          <br />
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+            className={classes.formFieldAges}
+          >
+            {ages.map((age) => {
+              return (
+                <MenuItem key={`${age}`} value={age}>
+                  {age}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </div>
+
         <div className={classes.formField}>
           <label htmlFor="email">Password:</label>
           <input
@@ -86,7 +109,6 @@ function RegisterBox(props) {
             id="password"
             name="password"
             onChange={(p) => setPassword(p.target.value)}
-            ref={passwordRef}
           />
         </div>
         <button type="submit" className={classes.submitButton}>
