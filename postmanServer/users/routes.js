@@ -47,4 +47,9 @@ router.delete(
   UserController.deleteUser
 );
 
+router.post(
+  "/do-nothing",
+  [isAuthenticatedMiddleware.check],
+  UserController.doNothing
+);
 module.exports = router;

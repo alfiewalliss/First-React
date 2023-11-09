@@ -66,7 +66,7 @@ module.exports = {
         return res.status(200).json({
           status: true,
           data: {
-            numberOfUsersDeleted: numberOfEntriesDeleted
+            numberOfUsersDeleted: numberOfEntriesDeleted,
           },
         });
       })
@@ -78,7 +78,18 @@ module.exports = {
       });
   },
 
+  doNothing: (req, res) => {
+    console.log("TESTESTESERSF");
+    const {
+      params: { userId },
+    } = req;
+    return res.status(200).json({
+      loggedIn: true,
+    });
+  },
+
   getAllUsers: (req, res) => {
+    console.log("test");
     UserModel.findAllUsers(req.query)
       .then((users) => {
         return res.status(200).json({
