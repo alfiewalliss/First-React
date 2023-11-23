@@ -28,16 +28,16 @@ const UserModel = {
   role: {
     type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: roles.USER
+    defaultValue: roles.ADMIN,
   },
   firstName: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
   lastName: {
     type: DataTypes.STRING,
-    allowNull: false
-  }
+    allowNull: false,
+  },
 };
 
 module.exports = {
@@ -63,13 +63,13 @@ module.exports = {
 
   findAllUsers: (query) => {
     return this.model.findAll({
-      where: query
+      where: query,
     });
   },
 
   deleteUser: (query) => {
     return this.model.destroy({
-      where: query
+      where: query,
     });
-  }
+  },
 };

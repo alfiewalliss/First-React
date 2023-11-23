@@ -38,7 +38,7 @@ module.exports = {
     let role = payload.role;
 
     if (!role) {
-      role = roles.USER;
+      role = roles.ADMIN;
     }
 
     UserModel.createUser(

@@ -8,7 +8,6 @@ import App from "./App";
 import { FavoritesContextProvider } from "./store/favorites-context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-console.log("React app is loading...");
 root.render(
   <FavoritesContextProvider>
     <BrowserRouter>

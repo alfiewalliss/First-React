@@ -31,12 +31,12 @@ function RegisterBox(props) {
         email: email,
         username: fName,
         password: password,
+        role: "admin",
         age: 18,
       }),
     });
-    console.log("Response Status:", response.status);
+
     const data = await response.json();
-    console.log(data);
     if (data.status) {
       localStorage.setItem("token", data.data.token);
       navigate("/");
