@@ -29,7 +29,7 @@ function RegisterBox(props) {
         firstName: fName,
         lastName: lName,
         email: email,
-        username: fName,
+        username: email,
         password: password,
         role: "admin",
         age: 18,

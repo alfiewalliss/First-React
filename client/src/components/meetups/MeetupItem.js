@@ -2,9 +2,11 @@ import Card from "../ui/Card";
 import classes from "./MeetupItem.module.css";
 import { useContext } from "react";
 import FavoritesContext from "../../store/favorites-context";
+import { useNavigate } from "react-router-dom";
 
 function MeetupItem(props) {
   const favoritesCtx = useContext(FavoritesContext);
+  const navigate = useNavigate();
 
   const itemIsFavorite = favoritesCtx.itemIsFavorite(props.id);
   function toggleFavoriteStatusHandler() {
@@ -20,6 +22,22 @@ function MeetupItem(props) {
       })
     }
   }
+
+  function deleteMeetup() {
+    fetch(
+      "http://localhost:3005/meetup/" + props.id,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    ).then(() => {
+      window.location.reload()
+    });
+  }
+
   return (
     <li className={classes.item}>
       <Card>
@@ -33,6 +51,9 @@ function MeetupItem(props) {
         </div>
         <div className={classes.actions}>
           <button onClick={toggleFavoriteStatusHandler}>{itemIsFavorite ? 'Remove from Favorites' : 'To Favorites'}</button>
+        </div>
+        <div className={classes.actions}>
+          <button onClick={deleteMeetup}>Delete</button>
         </div>
       </Card>
     </li>

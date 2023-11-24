@@ -16,7 +16,7 @@ function AllMeetupsPage() {
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
-      } //"https://react-getting-started-e0e0b-default-rtdb.europe-west1.firebasedatabase.app/meetups.json"
+      }
     )
       .then((responce) => {
         return responce.json();
