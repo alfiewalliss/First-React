@@ -13,6 +13,9 @@ module.exports = {
     address: {
       type: "string",
     },
+    ownerId: {
+      type: "string",
+    },
   },
   required: ["title", "description", "image", "address"],
   additionalProperties: false,

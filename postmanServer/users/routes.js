@@ -31,6 +31,12 @@ router.get(
   UserController.getAllUsers
 );
 
+router.post(
+  "/post-owner",
+  [isAuthenticatedMiddleware.check],
+  UserController.getPostOwner
+);
+
 router.patch(
   "/change-role/:userId",
   [

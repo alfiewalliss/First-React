@@ -79,7 +79,6 @@ module.exports = {
   },
 
   doNothing: (req, res) => {
-    console.log("TESTESTESERSF");
     const {
       params: { userId },
     } = req;
@@ -89,12 +88,29 @@ module.exports = {
   },
 
   getAllUsers: (req, res) => {
-    console.log("test");
     UserModel.findAllUsers(req.query)
       .then((users) => {
         return res.status(200).json({
           status: true,
           data: users,
+        });
+      })
+      .catch((err) => {
+        return res.status(500).json({
+          status: false,
+          error: err,
+        });
+      });
+  },
+
+  getPostOwner: (req, res) => {
+    const { body } = req;
+
+    UserModel.findUser(body.id)
+      .then((user) => {
+        return res.status(200).json({
+          status: true,
+          data: user.toJSON(),
         });
       })
       .catch((err) => {

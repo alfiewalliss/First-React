@@ -22,6 +22,10 @@ const MeetupModel = {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  ownerId: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 };
 
 module.exports = {

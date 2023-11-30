@@ -33,7 +33,7 @@ const sequelize = new Sequelize({
 UserModel.initialise(sequelize);
 MeetupModel.initialise(sequelize);
 
-// Syncing the models that are defined on sequelize with the tables that alredy exists
+// Syncing the models that are defined on sequelize with the tables that already exist
 // in the database. It creates models as tables that do not exist in the DB.
 sequelize
   .sync()
@@ -44,6 +44,18 @@ sequelize
     app.use("/", AuthorizationRoutes);
     app.use("/user", UserRoutes);
     app.use("/meetup", MeetupRoutes);
+
+    // Route to reset the database (drop tables and re-create)
+    app.delete("/reset-db", async (req, res) => {
+      try {
+        await sequelize.drop();
+        await sequelize.sync({ force: true });
+        res.status(200).json({ message: "Database reset successful" });
+      } catch (error) {
+        console.error("Database reset error:", error);
+        res.status(500).json({ message: "Database reset failed", error });
+      }
+    });
 
     app.listen(PORT, () => {
       console.log("Server Listening on PORT:", port);

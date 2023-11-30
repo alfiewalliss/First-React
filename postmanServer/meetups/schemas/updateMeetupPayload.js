@@ -13,6 +13,9 @@ module.exports = {
     address: {
       type: "string",
     },
+    ownerId: {
+      type: "number",
+    },
   },
   additionalProperties: false,
 };
